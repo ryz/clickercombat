@@ -6,6 +6,8 @@ public class GameSystem : MonoBehaviour {
 
     public Text goldCounter;
     public Text dpsCounter;
+    public Text archerLevelCounter;
+    public Text archerUpgradeCost;
 
     public Archer archer;
     public ClickCastle clickCastle;
@@ -24,6 +26,9 @@ public class GameSystem : MonoBehaviour {
     void Start () {
         goldCounter.text = "Gold: " + gold;
         dpsCounter.text = "DPS: " + damagePerSecond;
+        archerLevelCounter.text = "Lvl: " + archer.level;
+        archerUpgradeCost.text = "Cost: " + archer.upgradeCost;
+
         archerCycleSlider.value = 0;
         castleHealthSlider.maxValue = clickCastle.castleHealth;
         castleHealthSlider.value = clickCastle.castleHealth;
@@ -42,7 +47,7 @@ public class GameSystem : MonoBehaviour {
                 Debug.Log("Cycles completed: " + archerCyclesCompleted);
                 archerCycleSlider.value = 0;
                 Debug.Log(archer.CalcDamage(archer.level, archer.damage));
-                clickCastle.castleHealth -= archer.CalcDamage(1, 1);
+                clickCastle.castleHealth -= archer.CalcDamage(archer.level, archer.damage);
                 castleHealthSlider.value = clickCastle.castleHealth;
             }
         }

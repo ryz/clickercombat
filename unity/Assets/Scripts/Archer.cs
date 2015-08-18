@@ -7,18 +7,22 @@ public class Archer : MonoBehaviour {
     public GameSystem gameSystem;
     public bool isActive = false;
     public int level = 1;
-    public int damage = 1;
+    public int damage = 5;
     public int upgradeCost;
 
     // Use this for initialization
     void Start () {
         rend = GetComponent<Renderer>();
-	}
+        upgradeCost = level * 10;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        upgradeCost = level * 10;
+        gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
+        gameSystem.archerUpgradeCost.text = "Cost: " + upgradeCost;
+        gameSystem.archerLevelCounter.text = "Lvl: " + level;
+    }
 
     void OnMouseEnter()
     {
@@ -37,6 +41,17 @@ public class Archer : MonoBehaviour {
         if (Input.GetMouseButtonUp(0))
         {
             transform.localScale = new Vector3(0.9f, 0.9f, 1f);
+
+            if (gameSystem.gold >= upgradeCost)
+            {
+                gameSystem.gold -= upgradeCost;
+                level++;
+
+                gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
+                gameSystem.archerUpgradeCost.text = "Cost: " + upgradeCost;
+                gameSystem.archerLevelCounter.text = "Lvl: " + level;
+            }
+
             isActive = true;
         }
     }

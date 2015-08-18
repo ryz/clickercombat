@@ -22,7 +22,7 @@ public class ClickCastle : MonoBehaviour {
 	void Update () {
         gameSystem.castleHealthSlider.value = castleHealth;
 
-        if(castleHealth == 0)
+        if(castleHealth <= 0)
         {
             gameSystem.gold += 10;
             gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
