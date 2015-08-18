@@ -1,27 +1,42 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Archer : MonoBehaviour {
 
+	public GameSystem gameSystem;
+
     [HideInInspector] public Renderer rend;
-    public GameSystem gameSystem;
+	
     public bool isActive = false;
+
     public int level = 1;
     public int damage = 5;
     public int upgradeCost;
+	public int cyclesCompleted = 0;
 
+	// UI Stuff
+	public Text levelCounter;
+	public Text upgradeCostDisplay;
+	public Slider cycleSlider;
+	
     // Use this for initialization
     void Start () {
         rend = GetComponent<Renderer>();
         upgradeCost = level * 10;
+
+		levelCounter.text = "Lvl: " + level;
+		upgradeCostDisplay.text = "Cost: " + upgradeCost;
+		cycleSlider.value = 0;
     }
 	
 	// Update is called once per frame
 	void Update () {
         upgradeCost = level * 10;
-        gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
-        gameSystem.archerUpgradeCost.text = "Cost: " + upgradeCost;
-        gameSystem.archerLevelCounter.text = "Lvl: " + level;
+        upgradeCostDisplay.text = "Cost: " + upgradeCost;
+        levelCounter.text = "Lvl: " + level;
+
+
     }
 
     void OnMouseEnter()
@@ -48,8 +63,8 @@ public class Archer : MonoBehaviour {
                 level++;
 
                 gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
-                gameSystem.archerUpgradeCost.text = "Cost: " + upgradeCost;
-                gameSystem.archerLevelCounter.text = "Lvl: " + level;
+                upgradeCostDisplay.text = "Cost: " + upgradeCost;
+                levelCounter.text = "Lvl: " + level;
             }
 
             isActive = true;

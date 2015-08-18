@@ -8,26 +8,34 @@ public class ClickCastle : MonoBehaviour {
 	public GameSystem gameSystem;
     public int clickDmg = 10;
 
-    public float castleHealthMax = 100;
-    public float castleHealth = 100;
+    public float healthMax = 100;
+    public float health = 100;
+	public float currentCastle = 1;
+	public float castlesDestroyed = 0;
 
 
 	// Use this for initialization
 	void Start () {
 		rend = GetComponent<Renderer>();
 
+		gameSystem.castlesDestroyedText.text = "Castle #" + currentCastle;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        gameSystem.castleHealthSlider.value = castleHealth;
+        gameSystem.castleHealthSlider.value = health;
 
-        if(castleHealth <= 0)
+        if(health <= 0)
         {
             gameSystem.gold += 10;
             gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
+            health = healthMax;
 
-            castleHealth = castleHealthMax;
+			castlesDestroyed++;
+			currentCastle++;
+			gameSystem.castlesDestroyedText.text = "Castle #" + currentCastle;
+
         }
 	}
 
@@ -46,7 +54,7 @@ public class ClickCastle : MonoBehaviour {
 			gameSystem.gold += 1;
 			gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
 			transform.localScale = new Vector3(2.7f, 2.7f, 1f);
-            castleHealth -= clickDmg;
+            GetDamage(clickDmg);
 		}
 	}
 
@@ -55,5 +63,10 @@ public class ClickCastle : MonoBehaviour {
 		transform.localScale = new Vector3(3f, 3f, 1f);
 	}
 
-
+	public void GetDamage(float _damage) 
+	{
+		health -= _damage;
+		gameSystem.castleHealthText.text = "" + health;
+		gameSystem.castleHealthSlider.value = health;
+	}
 }
