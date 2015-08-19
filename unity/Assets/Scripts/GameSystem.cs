@@ -11,7 +11,7 @@ public class GameSystem : MonoBehaviour {
 	public Text castlesDestroyedText;
 
     public Archer[]	 archers;
-    public ClickCastle clickCastle;
+    public Castle castle;
 	
     public Slider castleHealthSlider;
 
@@ -23,9 +23,9 @@ public class GameSystem : MonoBehaviour {
         goldCounter.text = "Gold: " + gold;
         dpsCounter.text = "DPC: " + damagePerSecond;
         
-        castleHealthSlider.maxValue = clickCastle.health;
-        castleHealthSlider.value = clickCastle.health;
-		castleHealthText.text = "" + clickCastle.health;
+        castleHealthSlider.maxValue = castle.health;
+        castleHealthSlider.value = castle.health;
+		castleHealthText.text = "" + castle.health;
 
     }
 	
@@ -42,11 +42,11 @@ public class GameSystem : MonoBehaviour {
 
 				if (archer.cycleSlider.value == 1) {
 					archer.cyclesCompleted++;
-					Debug.Log ("Cycles completed: " + archer.cyclesCompleted);
+					Debug.Log (archer.name + " has cycles completed: " + archer.cyclesCompleted);
 					archer.cycleSlider.value = 0;
 					//Debug.Log(archer.CalcDamage(archer.level, archer.damage));
-					//clickCastle.castleHealth -= archer.CalcDamage(archer.level, archer.damage);
-					clickCastle.GetDamage (archer.CalcDamage (archer.level, archer.damage));
+					//castle.castleHealth -= archer.CalcDamage(archer.level, archer.damage);
+					castle.GetDamage (archer.CalcDamage (archer.level, archer.damage));
 				}
 			}
 		}

@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class ClickCastle : MonoBehaviour {
+public class Castle : MonoBehaviour {
 
     public Renderer rend;
 	public GameSystem gameSystem;
