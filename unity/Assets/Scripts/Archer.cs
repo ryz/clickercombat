@@ -4,46 +4,52 @@ using System.Collections;
 
 public class Archer : MonoBehaviour {
 
-	public GameSystem gameSystem;
+    public GameSystem gameSystem;
 
     [HideInInspector] public Renderer rend;
-	
-    public bool isActive = false;
+    [HideInInspector] public bool isActive = false;
 
     public int level = 1;
     public int damage = 5;
-    public int upgradeCost;
-	public int cyclesCompleted = 0;
+    public float initialCost;
+    public float upgradeCost;
+    public float upgradeCoefficient;
+    public int cyclesCompleted = 0;
 
-	// UI Stuff
-	public Text levelCounter;
-	public Text upgradeCostDisplay;
-	public Slider cycleSlider;
-	
+    // UI Stuff
+    public Text levelCounter;
+    public Text upgradeCostDisplay;
+    public Slider cycleSlider;
+
     // Use this for initialization
-    void Start () {
+    void Start() {
         rend = GetComponent<Renderer>();
         upgradeCost = level * 10;
+        initialCost = 3;
 
-		levelCounter.text = "Lvl: " + level;
-		upgradeCostDisplay.text = "Cost: " + upgradeCost;
-		cycleSlider.value = 0;
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        upgradeCost = level * 10;
-        upgradeCostDisplay.text = "Cost: " + upgradeCost;
         levelCounter.text = "Lvl: " + level;
+        upgradeCostDisplay.text = "Cost: " + initialCost;
+        cycleSlider.value = 0;
 
+        // Disable the slider as long as the unit is not unlocked
+        cycleSlider.gameObject.SetActive(false);
+    }
 
-        // If the unit is deactivated, grey them out
-        if (!isActive)
+    // Update is called once per frame
+    void Update() {
+        upgradeCost = level * 10;
+
+        if (isActive)
+        {
+            rend.material.color = Color.white;
+            SetUIUnit();
+        }
+        else
         {
             rend.material.color = Color.grey;
-        }
-        else {
-            rend.material.color = Color.white;
+            gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
+            upgradeCostDisplay.text = "Cost: " + initialCost;
+            levelCounter.text = "Unlock";
         }
 
     }
@@ -66,17 +72,18 @@ public class Archer : MonoBehaviour {
         {
             transform.localScale = new Vector3(0.9f, 0.9f, 1f);
 
+            // Upgrade
             if (isActive && gameSystem.gold >= upgradeCost)
             {
-                gameSystem.gold -= upgradeCost;
-                level++;
-
-                gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
-                upgradeCostDisplay.text = "Cost: " + upgradeCost;
-                levelCounter.text = "Lvl: " + level;
+                UpgradeUnit();
             }
 
-            isActive = true;
+            // Activate 
+            if (!isActive && gameSystem.gold >= initialCost)
+            {
+                ActivateUnit();
+            }
+
         }
     }
 
@@ -91,4 +98,29 @@ public class Archer : MonoBehaviour {
         int dmg = level * damage;
         return dmg;
     }
+
+    void ActivateUnit()
+    {
+        gameSystem.gold -= initialCost;
+        cycleSlider.gameObject.SetActive(true);
+        isActive = true;
+    }
+
+    void UpgradeUnit()
+    {
+        gameSystem.gold -= upgradeCost;
+        level++;
+
+        SetUIUnit();
+
+    }
+
+    void SetUIUnit()
+    {
+        // Set UI stuff
+        gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
+        upgradeCostDisplay.text = "Cost: " + upgradeCost;
+        levelCounter.text = "Lvl: " + level;
+    }
+
 }
