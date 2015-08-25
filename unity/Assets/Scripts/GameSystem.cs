@@ -22,10 +22,8 @@ public class GameSystem : MonoBehaviour {
     void Start () {
         goldCounter.text = "Gold: " + gold;
         dpsCounter.text = "DPC: " + damagePerSecond;
-        
-        castleHealthSlider.maxValue = castle.health;
-        castleHealthSlider.value = castle.health;
-		castleHealthText.text = "" + castle.health;
+
+        SetUICastleHealth();
 
     }
 	
@@ -53,4 +51,11 @@ public class GameSystem : MonoBehaviour {
 		dpsCounter.text = "DPC: " + archerTotalDmg;
         
 	}
+
+    public void SetUICastleHealth()
+    {
+        castleHealthSlider.maxValue = castle.health;
+        castleHealthSlider.value = castle.health;
+        castleHealthText.text = "" + castle.health;
+    }
 }

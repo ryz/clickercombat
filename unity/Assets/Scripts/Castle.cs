@@ -32,8 +32,11 @@ public class Castle : MonoBehaviour {
             gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
             health = healthMax;
 
+            gameSystem.SetUICastleHealth();
+
 			castlesDestroyed++;
 			currentCastle++;
+
 			gameSystem.castlesDestroyedText.text = "Castle #" + currentCastle;
 
         }
