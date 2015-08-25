@@ -10,7 +10,7 @@ public class GameSystem : MonoBehaviour {
 	public Text castleHealthText;
 	public Text castlesDestroyedText;
 
-    public Archer[]	 archers;
+    public Archer[]	archers;
     public Castle castle;
 	
     public Slider castleHealthSlider;
@@ -46,7 +46,7 @@ public class GameSystem : MonoBehaviour {
 					archer.cycleSlider.value = 0;
 					//Debug.Log(archer.CalcDamage(archer.level, archer.damage));
 					//castle.castleHealth -= archer.CalcDamage(archer.level, archer.damage);
-					castle.GetDamage (archer.CalcDamage (archer.level, archer.damage));
+					castle.GetDamage(archer.CalcDamage (archer.level, archer.damage));
 				}
 			}
 		}

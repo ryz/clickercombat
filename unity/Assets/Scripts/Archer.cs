@@ -37,6 +37,15 @@ public class Archer : MonoBehaviour {
         levelCounter.text = "Lvl: " + level;
 
 
+        // If the unit is deactivated, grey them out
+        if (!isActive)
+        {
+            rend.material.color = Color.grey;
+        }
+        else {
+            rend.material.color = Color.white;
+        }
+
     }
 
     void OnMouseEnter()
@@ -57,7 +66,7 @@ public class Archer : MonoBehaviour {
         {
             transform.localScale = new Vector3(0.9f, 0.9f, 1f);
 
-            if (gameSystem.gold >= upgradeCost)
+            if (isActive && gameSystem.gold >= upgradeCost)
             {
                 gameSystem.gold -= upgradeCost;
                 level++;
