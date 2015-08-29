@@ -11,10 +11,12 @@ public class Archer : MonoBehaviour {
 
     public int level = 1;
     public int damage = 5;
-    public float initialCost;
-    public float upgradeCost;
-    public float upgradeCoefficient;
-    public int cyclesCompleted = 0;
+
+    public float initialCost; // The cost for the first unit bought each
+    public float currentCost;
+    public float upgradeCost; // The current cost to upgrade
+    public float upgradeCoefficient; // Constant, the price increase with each buy
+    public int cyclesCompleted = 0; // Intervals of damage dealing completed
 
     // UI Stuff
     public Text levelCounter;
@@ -24,9 +26,14 @@ public class Archer : MonoBehaviour {
     // Use this for initialization
     void Start() {
         rend = GetComponent<Renderer>();
-        upgradeCost = level * 10;
-        initialCost = 3;
+ 
+        // Unit cost init
+        //initialCost = 3;
+        //upgradeCoefficient = 1.07f;
 
+        upgradeCost = initialCost;
+
+        // UI init
         levelCounter.text = "Lvl: " + level;
         upgradeCostDisplay.text = "Cost: " + initialCost;
         cycleSlider.value = 0;
@@ -37,7 +44,12 @@ public class Archer : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        upgradeCost = level * 10;
+
+        if (level <= 1)
+        {
+            upgradeCost = initialCost;
+        }
+
 
         if (isActive)
         {
@@ -111,8 +123,15 @@ public class Archer : MonoBehaviour {
         gameSystem.gold -= upgradeCost;
         level++;
 
+        UpdateUnitCost();
         SetUIUnit();
 
+    }
+
+    void UpdateUnitCost()
+    {
+        currentCost = upgradeCost;
+        upgradeCost = currentCost * upgradeCoefficient;
     }
 
     void SetUIUnit()
