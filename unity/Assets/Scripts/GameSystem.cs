@@ -30,12 +30,12 @@ public class GameSystem : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		int archerTotalDmg = 0;
+		float archerTotalDmg = 0;
 		goldCounter.text = "Gold: " + gold;
 
 		foreach (var archer in archers) {
 			if (archer.isActive) {
-				archerTotalDmg += archer.CalcDamage(archer.level, archer.damage);
+				archerTotalDmg += archer.CalcDamage(archer.level, archer.initialDamage);
 				archer.cycleSlider.value += 0.005f;
 
 				if (archer.cycleSlider.value == 1) {
@@ -44,7 +44,7 @@ public class GameSystem : MonoBehaviour {
 					archer.cycleSlider.value = 0;
 					//Debug.Log(archer.CalcDamage(archer.level, archer.damage));
 					//castle.castleHealth -= archer.CalcDamage(archer.level, archer.damage);
-					castle.GetDamage(archer.CalcDamage (archer.level, archer.damage));
+					castle.GetDamage(archer.CalcDamage (archer.level, archer.initialDamage));
 				}
 			}
 		}

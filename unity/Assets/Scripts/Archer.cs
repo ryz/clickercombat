@@ -8,15 +8,16 @@ public class Archer : MonoBehaviour {
 
     [HideInInspector] public Renderer rend;
     [HideInInspector] public bool isActive = false;
+    [HideInInspector] public float currentCost;
+    [HideInInspector] public float upgradeCost; // The current cost to upgrade
+    [HideInInspector] public int cyclesCompleted = 0; // Intervals of damage dealing completed
+    [HideInInspector] public float level = 1;
 
-    public int level = 1;
-    public int damage = 5;
+    public float initialDamage; // initial damage the unit does after each cycle
 
     public float initialCost; // The cost for the first unit bought each
-    public float currentCost;
-    public float upgradeCost; // The current cost to upgrade
     public float upgradeCoefficient; // Constant, the price increase with each buy
-    public int cyclesCompleted = 0; // Intervals of damage dealing completed
+
 
     // UI Stuff
     public Text levelCounter;
@@ -26,10 +27,6 @@ public class Archer : MonoBehaviour {
     // Use this for initialization
     void Start() {
         rend = GetComponent<Renderer>();
- 
-        // Unit cost init
-        //initialCost = 3;
-        //upgradeCoefficient = 1.07f;
 
         upgradeCost = initialCost;
 
@@ -105,9 +102,9 @@ public class Archer : MonoBehaviour {
         transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
-    public int CalcDamage(int level, int damage)
+    public float CalcDamage(float _level, float _damage)
     {
-        int dmg = level * damage;
+        float dmg = _level * _damage;
         return dmg;
     }
 
