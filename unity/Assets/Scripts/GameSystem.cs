@@ -49,7 +49,11 @@ public class GameSystem : MonoBehaviour {
 			}
 		}
 		dpsCounter.text = "DPC: " + archerTotalDmg;
-        
+
+        if(Input.GetKeyDown("p")) 
+        {
+            gold += 10000;
+        }
 	}
 
     public void SetUICastleHealth()
