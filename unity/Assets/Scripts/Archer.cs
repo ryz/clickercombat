@@ -18,7 +18,6 @@ public class Archer : MonoBehaviour {
     public float initialCost; // The cost for the first unit bought each
     public float upgradeCoefficient; // Constant, the price increase with each buy
 
-
     // UI Stuff
     public Text levelCounter;
     public Text upgradeCostDisplay;
@@ -56,13 +55,12 @@ public class Archer : MonoBehaviour {
         else
         {
             rend.material.color = Color.grey;
-            gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
-            upgradeCostDisplay.text = "Cost: " + initialCost;
+            gameSystem.goldCounter.text = "Gold: " + Mathf.RoundToInt(gameSystem.gold);
+            upgradeCostDisplay.text = "Cost: " + Mathf.RoundToInt(initialCost);
             levelCounter.text = "Unlock";
         }
 
     }
-
     void OnMouseEnter()
     {
         rend.material.color = Color.red;
@@ -134,8 +132,8 @@ public class Archer : MonoBehaviour {
     void SetUIUnit()
     {
         // Set UI stuff
-        gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
-        upgradeCostDisplay.text = "Cost: " + upgradeCost;
+        gameSystem.goldCounter.text = "Gold: " + Mathf.RoundToInt(gameSystem.gold);
+        upgradeCostDisplay.text = "Cost: " + Mathf.RoundToInt(upgradeCost);
         levelCounter.text = "Lvl: " + level;
     }
 

@@ -60,6 +60,13 @@ public class GameSystem : MonoBehaviour {
     {
         castleHealthSlider.maxValue = castle.health;
         castleHealthSlider.value = castle.health;
-        castleHealthText.text = "" + castle.health;
+        castleHealthText.text = "" + Mathf.RoundToInt(castle.health);
+    }
+
+    // Custon version of Math.Round, because Unity does not support rounding to decimal places
+    public static float RoundDecimal(float value, int digits)
+    {
+        float mult = Mathf.Pow(10.0f, (float)digits);
+        return Mathf.Round(value * mult) / mult;
     }
 }

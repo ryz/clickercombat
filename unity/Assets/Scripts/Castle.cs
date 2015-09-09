@@ -29,7 +29,7 @@ public class Castle : MonoBehaviour {
         if(health <= 0)
         {
             gameSystem.gold += 10;
-            gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
+            gameSystem.goldCounter.text = "Gold: " + Mathf.RoundToInt(gameSystem.gold);
             health = healthMax;
 
             gameSystem.SetUICastleHealth();
@@ -55,7 +55,7 @@ public class Castle : MonoBehaviour {
 
 		if(Input.GetMouseButtonUp(0)) {
 			gameSystem.gold += 1;
-			gameSystem.goldCounter.text = "Gold: " + gameSystem.gold;
+			gameSystem.goldCounter.text = "Gold: " + Mathf.RoundToInt(gameSystem.gold);
 			transform.localScale = new Vector3(2.7f, 2.7f, 1f);
             GetDamage(clickDmg);
 		}
@@ -69,7 +69,7 @@ public class Castle : MonoBehaviour {
 	public void GetDamage(float _damage) 
 	{
 		health -= _damage;
-		gameSystem.castleHealthText.text = "" + health;
+		gameSystem.castleHealthText.text = "" + Mathf.RoundToInt(health);
 		gameSystem.castleHealthSlider.value = health;
 	}
 }
